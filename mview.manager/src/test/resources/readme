@@ -1,0 +1,19 @@
+1.h2 download
+  http://www.h2database.com/html/download.html
+2.h2 start
+  {h2_home}/bin/h2.sh or h2.bat
+3.h2 create-table
+  	CREATE TABLE `mview_definition_template` (
+	   `type` varchar(64) NOT NULL,
+	   `name` varchar(64) NOT NULL,
+	   `version` varchar(64) NOT NULL,
+	   `applyVersion` varchar(64) NOT NULL,
+	   `content` varchar(500) DEFAULT NULL,
+	   `operator` varchar(50) DEFAULT NULL,
+       `description` varchar(200) DEFAULT NULL,
+       `ctime` datetime ,
+       `mtime` datetime,
+	   PRIMARY KEY (`type`,`name`,`version`)
+	 )  ;
+	
+	

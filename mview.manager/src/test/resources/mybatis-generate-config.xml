@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" 
+	"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<classPathEntry	location="D:\repo\com\h2database\h2\1.4.177\h2-1.4.177.jar" />
+	<context id="context1">
+		<!-- pagination plugin -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="false" />
+		</commentGenerator>
+
+		<jdbcConnection driverClass="org.h2.Driver"
+			connectionURL="jdbc:h2:tcp://127.0.0.1/~/test" userId="sa"
+			password="" />
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- un-pagination -->	
+		<javaModelGenerator targetPackage="cn.kane.mview.base.storager.h2.mbojb"
+			targetProject="mview.manager" />
+		<sqlMapGenerator targetPackage="cn.kane.mview.base.storager.h2.mbmapper"
+			targetProject="mview.manager" />
+		<javaClientGenerator targetPackage="cn.kane.mview.base.storager.h2.mbmapper"
+			targetProject="mview.manager" type="XMLMAPPER" />
+		<table schema="" tableName="mview_definition_template" domainObjectName="MybatisTemplate"/>
+	</context>
+</generatorConfiguration>

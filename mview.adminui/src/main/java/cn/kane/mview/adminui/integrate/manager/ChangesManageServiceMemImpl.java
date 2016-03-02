@@ -39,6 +39,17 @@ public class ChangesManageServiceMemImpl implements ChangesManageService {
 	}
 
 	@Override
+	public void remove(String requirementId, DefinitionKey key) {
+		if(null == requirementId || null == key){
+			return ;
+		}
+		Changes changes = store.get(requirementId) ;
+		if(null!=changes){
+			changes.getChanges().remove(key) ;
+		}
+	}
+	
+	@Override
 	public List<DefinitionKey> list(String requirementId) {
 		if(!store.containsKey(requirementId)){
 			return null;
@@ -156,4 +167,5 @@ public class ChangesManageServiceMemImpl implements ChangesManageService {
 		}
 		return defs ;
 	}
+
 }

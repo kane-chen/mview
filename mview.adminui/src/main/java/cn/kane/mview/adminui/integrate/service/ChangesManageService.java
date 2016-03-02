@@ -13,6 +13,8 @@ public interface ChangesManageService {
 
 	void add(String requirementId,DefinitionKey key) ;
 	
+	void remove(String requirementId,DefinitionKey key) ;
+	
 	List<DefinitionKey> list(String requirementId) ;
 	
 	void backup(String requirementId) ;

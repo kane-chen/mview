@@ -43,7 +43,7 @@ public class WidgetDefinitionVO extends WidgetDefinition {
 			this.setKey(JSON.parseObject(vkey, DefinitionKey.class));
 		}
 		if(null!=dsDefKeys){
-			this.setDataReaderDefinitions(DefinitionKeysJsonUtil.parseDataReadServiceKey(dsDefKeys));
+			this.setDataReaderDefinitions(DefinitionKeysJsonUtil.parseKeys(dsDefKeys));
 		}
 	}
 	
@@ -66,7 +66,7 @@ public class WidgetDefinitionVO extends WidgetDefinition {
 			vo.setVtDefKey(JSON.toJSONString(def.getViewTemplateDefinition()));
 		}
 		if(null!=def.getDataReaderDefinitions()){
-			vo.setDsDefKeys(DefinitionKeysJsonUtil.formatDataReadServiceKey(def.getDataReaderDefinitions()));
+			vo.setDsDefKeys(DefinitionKeysJsonUtil.formatKeys(def.getDataReaderDefinitions()));
 		}
 		return vo ;
 	}

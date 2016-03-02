@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.kane.mview.adminui.web.utils.JsonDataEditor;
+import cn.kane.mview.adminui.web.vo.TemplateDefinitionVO;
 import cn.kane.mview.service.definition.entity.DefinitionKey;
 import cn.kane.mview.service.definition.entity.TemplateDefinition;
 import cn.kane.mview.service.definition.service.TemplateDefinitionManager;
@@ -40,11 +41,11 @@ public class TemplateAdminController {
 	
 	@RequestMapping(value="templates/{type}/{name}/{version}",method=RequestMethod.GET)
 	@ResponseBody
-	public TemplateDefinition view(@PathVariable("type")String type,
+	public TemplateDefinitionVO view(@PathVariable("type")String type,
 			@PathVariable("name")String name,
 			@PathVariable("version")String version){
 		DefinitionKey key = this.buildDefinitionKey(type, name, version);
-		return templateDefinitionManager.get(key ) ;
+		return new TemplateDefinitionVO(templateDefinitionManager.get(key)) ;
 	}
 	
 	@RequestMapping(value="templates/{key}",method=RequestMethod.GET)

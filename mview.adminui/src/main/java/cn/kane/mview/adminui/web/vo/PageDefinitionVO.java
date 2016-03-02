@@ -1,6 +1,5 @@
 package cn.kane.mview.adminui.web.vo;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -25,8 +24,12 @@ public class PageDefinitionVO extends PageDefinition {
 	private String jsDefKey ;
 	private List<String> dsDefKeys ;
 	private List<String> widgetDefKeys ;
+	private String vkey ;
 	
 	public void parse(){
+		if(StringUtils.isNotBlank(vkey)){
+			this.setKey(JSON.parseObject(vkey, DefinitionKey.class));
+		}
 		if(StringUtils.isNotBlank(cssDefKey)){
 			this.setCssDefinition(JSON.parseObject(cssDefKey, DefinitionKey.class));
 		}
@@ -37,14 +40,14 @@ public class PageDefinitionVO extends PageDefinition {
 			this.setLayoutDefinition(JSON.parseObject(layoutDefKey, DefinitionKey.class));
 		}
 		if(null!=dsDefKeys){
-			this.setDataReaderDefinitions(DefinitionKeysJsonUtil.parseDataReadServiceKey(dsDefKeys));
+			this.setDataReaderDefinitions(DefinitionKeysJsonUtil.parseKeys(dsDefKeys));
 		}
 		if(null!=widgetDefKeys){
-			this.setWidgetDefinitions(DefinitionKeysJsonUtil.parseDataReadServiceKey(widgetDefKeys));
+			this.setWidgetDefinitions(DefinitionKeysJsonUtil.parseKeys(widgetDefKeys));
 		}
 	}
 	
-	public static PageDefinitionVO format(PageDefinition def) throws IOException{
+	public static PageDefinitionVO format(PageDefinition def){
 		PageDefinitionVO vo = new PageDefinitionVO() ;
 		copier.copy(def, vo, null);
 		if(null!=def.getCssDefinition()){
@@ -57,10 +60,10 @@ public class PageDefinitionVO extends PageDefinition {
 			vo.setLayoutDefKey(JSON.toJSONString(def.getLayoutDefinition()));
 		}
 		if(null!=def.getDataReaderDefinitions()){
-			vo.setDsDefKeys(DefinitionKeysJsonUtil.formatDataReadServiceKey(def.getDataReaderDefinitions()));
+			vo.setDsDefKeys(DefinitionKeysJsonUtil.formatKeys(def.getDataReaderDefinitions()));
 		}
 		if(null!=def.getWidgetDefinitions()){
-			vo.setWidgetDefKeys(DefinitionKeysJsonUtil.formatDataReadServiceKey(def.getWidgetDefinitions()));
+			vo.setWidgetDefKeys(DefinitionKeysJsonUtil.formatKeys(def.getWidgetDefinitions()));
 		}
 		return vo ;
 	}
@@ -94,6 +97,14 @@ public class PageDefinitionVO extends PageDefinition {
 	}
 	public void setJsDefKey(String jsDefKey) {
 		this.jsDefKey = jsDefKey;
+	}
+
+	public String getVkey() {
+		return vkey;
+	}
+
+	public void setVkey(String vkey) {
+		this.vkey = vkey;
 	}
 	
 	

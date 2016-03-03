@@ -39,7 +39,6 @@ define(function(require){
 					$http.post('http://127.0.0.1:8080/mview/changes',httpParam)
 						.success(function (data, status, headers){
 							if(data.code == '200'){
-								alert('SUCCESS');
 								rqm.status = 'added' ;
 								$state.reload();
 								notification.log('Remove SUCCESS' , { addnCls: 'humane-flatty-success' });
@@ -50,7 +49,8 @@ define(function(require){
 						});	
 				}
 			},
-			template:'<a ng-if="rqm.status != \'removed\'" class="btn btn-danger btn-xs" ng-click="remove(rqm)"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;Remove</a><a ng-if="rqm.status == \'removed\'" class="btn btn-success btn-xs" ng-click="add(rqm)"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;Resume</a>'
+			template:'<a ng-if="rqm.status != \'removed\'" class="btn btn-danger btn-xs" ng-click="remove(rqm)"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;Remove</a>'
+				+'<a ng-if="rqm.status == \'removed\'" class="btn btn-success btn-xs" ng-click="add(rqm)"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;Resume</a>'
 
 		}
 	};

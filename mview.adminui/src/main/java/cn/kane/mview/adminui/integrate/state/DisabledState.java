@@ -22,6 +22,11 @@ public class DisabledState implements State {
 	public String backwardName(String requirementId) {
 		return DISABLE_STATE.backwardName();
 	}
+	
+	@Override
+	public String disableName(String requirementId) {
+		return DISABLE_STATE.disableName();
+	}
 
 	@Override
 	public void add(String requirementId, DefinitionKey key) {
@@ -41,11 +46,6 @@ public class DisabledState implements State {
 
 	@Override
 	public void disable(String requirementId) {
-		throw new UnsupportedOperationException("disable cannot do any action") ;
-	}
-
-	@Override
-	public void rollback(String requirementId) {
 		throw new UnsupportedOperationException("disable cannot do any action") ;
 	}
 

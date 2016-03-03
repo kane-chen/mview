@@ -32,6 +32,11 @@ public class NewState implements State {
 	}
 	
 	@Override
+	public String disableName(String requirementId) {
+		return NEW_STATE.disableName();
+	}
+	
+	@Override
 	public void add(String requirementId, DefinitionKey key) {
 		changesManageService.add(requirementId, key);
 	}
@@ -43,11 +48,6 @@ public class NewState implements State {
 
 	@Override
 	public void backward(String requirementId) {
-		throw new UnsupportedOperationException(requirementId) ;
-	}
-
-	@Override
-	public void rollback(String requirementId) {
 		throw new UnsupportedOperationException(requirementId) ;
 	}
 

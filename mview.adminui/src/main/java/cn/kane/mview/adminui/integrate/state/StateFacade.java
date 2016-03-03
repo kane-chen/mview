@@ -28,6 +28,11 @@ public class StateFacade implements State {
 	public String backwardName(String requirementId) {
 		return this.getState(requirementId).backwardName(requirementId);
 	}
+	
+	@Override
+	public String disableName(String requirementId) {
+		return this.getState(requirementId).disableName(requirementId);
+	}
 
 	@Override
 	public void add(String requirementId, DefinitionKey key) {
@@ -47,11 +52,6 @@ public class StateFacade implements State {
 	@Override
 	public void disable(String requirementId) {
 		this.getState(requirementId).disable(requirementId);
-	}
-
-	@Override
-	public void rollback(String requirementId) {
-		this.getState(requirementId).rollback(requirementId);
 	}
 
 	private State getState(String requirementId){

@@ -10,6 +10,8 @@ public interface State {
 	
 	String backwardName(String requirementId) ;
 	
+	String disableName(String requirementId) ;
+	
 	void add(String requirementId,DefinitionKey key) ;
 	
 	void action(String requirementId) ;
@@ -18,8 +20,5 @@ public interface State {
 
 	void disable(String requirementId) ;
 
-	void rollback(String requirementId) ;
-	
-	
 	
 }

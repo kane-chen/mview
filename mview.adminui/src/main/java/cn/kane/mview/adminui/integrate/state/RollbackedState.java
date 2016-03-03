@@ -22,6 +22,11 @@ public class RollbackedState implements State {
 	public String backwardName(String requirementId) {
 		return ROLLBACK_STATE.backwardName();
 	}
+	
+	@Override
+	public String disableName(String requirementId) {
+		return ROLLBACK_STATE.disableName();
+	}
 
 	@Override
 	public void add(String requirementId, DefinitionKey key) {
@@ -41,11 +46,6 @@ public class RollbackedState implements State {
 
 	@Override
 	public void disable(String requirementId) {
-		throw new UnsupportedOperationException("rollback cannot do any action") ;
-	}
-
-	@Override
-	public void rollback(String requirementId) {
 		throw new UnsupportedOperationException("rollback cannot do any action") ;
 	}
 

@@ -9,7 +9,7 @@ define(function(require){
 	        .fields([
 	            nga.field('id').isDetailLink(true),
 	            nga.field('name'),
-	            nga.field('status'),
+	            nga.field('status').label('Status'),
 	            nga.field('operator'),
 	            nga.field('description')
 	        ])
@@ -17,7 +17,10 @@ define(function(require){
         ;
         requirements.showView().fields([
             nga.field('name','string'),
-            nga.field('status','string'),
+            nga.field('status','string').label('Status')
+            	 .template(function(key,v){
+            		return '<integrate-btn rqm="::entry"></integrate-btn>' ;
+            	 }),
             nga.field('operator','string'),
             nga.field('mtime','string'),
             nga.field('description','text'),

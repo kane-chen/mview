@@ -114,8 +114,8 @@ public class ChangesPublishServiceTest {
 	
 	@Test
 	public void test005_rollback(){
-		//rollback
-		stateFacade.rollback(requirementId) ;
+		//rollback(published.backward)
+		stateFacade.backward(requirementId) ;
 		Requirement rollbackedReq = requirementManageService.get(requirementId) ;
 		Assert.assertEquals(IntegrateStatus.ROLLBACKED.status(), rollbackedReq.getStatus()) ;
 		DefinitionKey trunkKey1 = this.clone(key1) ;

@@ -31,6 +31,11 @@ public class PublishedState implements State {
 	public String backwardName(String requirementId) {
 		return PUBLISH_STATE.backwardName();
 	}
+	
+	@Override
+	public String disableName(String requirementId) {
+		return PUBLISH_STATE.disableName();
+	}
 
 	@Override
 	public void add(String requirementId, DefinitionKey key) {
@@ -44,20 +49,15 @@ public class PublishedState implements State {
 
 	@Override
 	public void backward(String requirementId) {
-		requirementManageService.compareAndSetStatus(requirementId,this.status(requirementId),IntegrateStatus.COMMITED.status());
+//		requirementManageService.compareAndSetStatus(requirementId,this.status(requirementId),IntegrateStatus.COMMITED.status());
+		List<DefinitionKey> backupKeys = changesManageService.listBackup(requirementId) ;
+		changesManageService.writeTrunk(backupKeys);
+		requirementManageService.compareAndSetStatus(requirementId,this.status(requirementId),IntegrateStatus.ROLLBACKED.status());
 	}
 
 	@Override
 	public void disable(String requirementId) {
 		requirementManageService.compareAndSetStatus(requirementId,this.status(requirementId),IntegrateStatus.DISABLED.status());
-	}
-
-	@Override
-	public void rollback(String requirementId) {
-		//resume trunk
-		List<DefinitionKey> backupKeys = changesManageService.listBackup(requirementId) ;
-		changesManageService.writeTrunk(backupKeys);
-		requirementManageService.compareAndSetStatus(requirementId,this.status(requirementId),IntegrateStatus.ROLLBACKED.status());
 	}
 
 }

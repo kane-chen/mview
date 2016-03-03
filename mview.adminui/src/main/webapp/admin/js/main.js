@@ -20,6 +20,7 @@ define(function (require) {
 	//directive
 	ExampleModule.directive('approveBtn', require('app1/integrate/directive_approve_btn'));
 	ExampleModule.directive('removeBtn', require('app1/integrate/directive_remove_btn'));
+	ExampleModule.directive('integrateBtn', require('app1/integrate/directive_integrate_btn'));
 	// Config
 	ExampleModule.config(require('app1/app'));
 

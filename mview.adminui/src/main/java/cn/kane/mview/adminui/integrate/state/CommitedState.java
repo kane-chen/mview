@@ -35,6 +35,11 @@ public class CommitedState implements State {
 	}
 
 	@Override
+	public String disableName(String requirementId) {
+		return PUSH_STATE.disableName();
+	}
+	
+	@Override
 	public void add(String requirementId, DefinitionKey key) {
 		throw new UnsupportedOperationException(requirementId) ;
 	}
@@ -55,11 +60,6 @@ public class CommitedState implements State {
 	@Override
 	public void disable(String requirementId) {
 		requirementManageService.compareAndSetStatus(requirementId,this.status(requirementId),IntegrateStatus.DISABLED.status());
-	}
-
-	@Override
-	public void rollback(String requirementId) {
-		throw new UnsupportedOperationException(requirementId) ;
 	}
 
 }

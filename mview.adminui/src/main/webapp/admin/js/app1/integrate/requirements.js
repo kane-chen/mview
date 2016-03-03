@@ -39,7 +39,7 @@ define(function(require){
 		            	}),
                     nga.field('vkey').label('Operate')
 	                    .template(function(key,v){
-		            		return '<remove-btn rqm='+key.values.vkey+' requirement_id='+key+'></remove-btn>' ;
+		            		return '<remove-btn rqm="::entry"></remove-btn>' ;
 		            	}),
                 ])
         ]);

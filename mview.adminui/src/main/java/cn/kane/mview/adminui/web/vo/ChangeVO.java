@@ -5,15 +5,17 @@ import cn.kane.mview.service.definition.entity.DefinitionKey;
 
 public class ChangeVO {
 
+	private String requirementId ;
 	private DefinitionKey key ;
 	private String vkey ;
 	private String pathkey ;
-
-	public static ChangeVO build(DefinitionKey key){
+	
+	public static ChangeVO build(String requirementId,DefinitionKey key){
 		if(null == key){
 			return null ;
 		}
 		ChangeVO change = new ChangeVO() ;
+		change.setRequirementId(requirementId);
 		change.setKey(key);
 		change.setVkey(DefinitionKeysJsonUtil.format(key));
 		change.setPathkey(key.getType()+"/"+key.getName()+"/"+key.getVersion());
@@ -37,6 +39,14 @@ public class ChangeVO {
 	}
 	public void setPathkey(String pathkey) {
 		this.pathkey = pathkey;
+	}
+
+	public String getRequirementId() {
+		return requirementId;
+	}
+
+	public void setRequirementId(String requirementId) {
+		this.requirementId = requirementId;
 	}
 	
 }

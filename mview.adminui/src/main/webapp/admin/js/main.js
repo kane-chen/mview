@@ -18,7 +18,7 @@ define(function (require) {
     //app-module
 	var ExampleModule = angular.module('myApp', ['ng-admin']);
 	//directive
-	ExampleModule.directive('approveBtn', require('app1/integrate/directive_approve_btn'));
+	ExampleModule.directive('joinBtn', require('app1/integrate/directive_member_btn'));
 	ExampleModule.directive('removeBtn', require('app1/integrate/directive_remove_btn'));
 	ExampleModule.directive('integrateBtn', require('app1/integrate/directive_integrate_btn'));
 	// Config

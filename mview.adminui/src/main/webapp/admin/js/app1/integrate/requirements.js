@@ -13,7 +13,7 @@ define(function(require){
 	            nga.field('operator'),
 	            nga.field('description')
 	        ])
-        	.listActions(['show','edit', 'delete','<approve-btn rqm="::entry"></approve-btn>']);
+        	.listActions(['show','edit', 'delete','<join-btn rqm="::entry"></join-btn>']);
         ;
         requirements.showView().fields([
             nga.field('name','string'),

@@ -1,6 +1,6 @@
 define(function(require){
 	'use strict';
-	return function ($http) {
+	return function ($http,$state,notification) {
 		return {
 			restrict: 'EA',
 			scope: {
@@ -18,10 +18,11 @@ define(function(require){
 					$http.get('http://127.0.0.1:8080/mview/requirement/members/join',httpParam)
 						.success(function (data, status, headers){
 							if(data.code == 'OK'){
-								alert('JOIN SUCCESS');
+								$state.reload();
+								notification.log('Join SUCCESS' , { addnCls: 'humane-flatty-success' });
 							}
 						}).error(function (data, status, headers){
-							console.log(data);
+							notification.log('A problem occurred, please try again', { addnCls: 'humane-flatty-error' });
 						});	
 				}
 			},

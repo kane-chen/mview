@@ -1,9 +1,12 @@
 package cn.kane.mview.adminui.integrate.manager;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -140,22 +143,77 @@ public class ChangesManageServiceMemImpl implements ChangesManageService {
 	
 	private void writeToTrunk(List<AbstractDefinition> defs){
 		for(AbstractDefinition def : defs){
-			//apply-version
-			String applyVersion = def.getKey().getVersion() ;
-			//key.clone
-			DefinitionKey newKey = this.clone(def.getKey()) ;
-			newKey.setVersion(TRUNK_VERSION) ;
-			//switch trunk
-			def.setApplyVersion(applyVersion);
-			def.setKey(newKey);
+			//new-trunk-definition
+			AbstractDefinition newTrunk = this.buildTrunkDefinition(def) ;
 			//write trunk
-			if(null!=resourceDefinitionManagerFacade.get(newKey)){
+			if(null!=resourceDefinitionManagerFacade.get(newTrunk.getKey())){
 				resourceDefinitionManagerFacade.edit(def) ;
 			}else{
 				resourceDefinitionManagerFacade.add(def) ;
 			}
 		}
 	}
+
+	private AbstractDefinition buildTrunkDefinition(AbstractDefinition definition){
+		if(null == definition){
+			return null ;
+		}
+		AbstractDefinition trunkDefinition = null ;
+		try{
+			//for the same entity in mem(other not required)
+			trunkDefinition = definition.getClass().newInstance() ;
+			BeanUtils.copyProperties(definition, trunkDefinition);
+			//set all trunk-version
+			this.setAllKeyVersion(trunkDefinition) ;
+			//apply-version
+			trunkDefinition.setApplyVersion(definition.getKey().getVersion());
+		}catch(Exception e){
+			throw new IllegalArgumentException(e);
+		}
+		return trunkDefinition ;
+	}
+	
+	private AbstractDefinition setAllKeyVersion(AbstractDefinition definition) throws IllegalArgumentException, IllegalAccessException {
+		for (Field field : definition.getClass().getDeclaredFields()) {
+			if (field.getType() == DefinitionKey.class) {
+				field.setAccessible(true);
+				Object fieldVal = field.get(definition);
+				if (null != fieldVal) {
+					DefinitionKey key = (DefinitionKey) fieldVal;
+					field.set(definition, this.clone(key));
+				}
+			} else if (field.getType() == List.class) {
+				if (this.isGenericDefinitionKey(field)) {
+					field.setAccessible(true);
+					Object fieldvals = field.get(definition);
+					if (null != fieldvals) {
+						@SuppressWarnings("unchecked")
+						List<DefinitionKey> keys = (List<DefinitionKey>) fieldvals;
+						List<DefinitionKey> newkeys = new ArrayList<DefinitionKey>(
+								keys.size());
+						for (DefinitionKey key : keys) {
+							DefinitionKey newkey = this.clone(key);
+							newkey.setVersion("TRUNK");
+							newkeys.add(newkey);
+						}
+						field.set(definition, newkeys);
+					}
+				}
+			}
+		}
+		return definition;
+	}
+
+	private boolean isGenericDefinitionKey(Field field){
+		if(null!=field.getGenericType()){
+			if(field.getGenericType() instanceof ParameterizedType){
+				ParameterizedType type = (ParameterizedType) field.getGenericType() ;
+				return type .getActualTypeArguments()[0] == DefinitionKey.class ;
+			}
+		}
+		return false ;
+	}
+	
 	
 	private List<AbstractDefinition> getDefinitions(List<DefinitionKey> keys){
 		List<AbstractDefinition> defs = new ArrayList<AbstractDefinition>(keys.size());

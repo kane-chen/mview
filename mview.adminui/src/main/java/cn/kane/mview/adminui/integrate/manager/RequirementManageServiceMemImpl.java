@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.annotation.PostConstruct;
+//import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,8 @@ public class RequirementManageServiceMemImpl implements RequirementManageService
 	private Map<String,Requirement> store = new ConcurrentHashMap<String,Requirement>() ;
 	private AtomicLong counter = new AtomicLong(1) ;
 	
-	@PostConstruct
+//	@PostConstruct
+	@Deprecated
 	public void init(){
 		Requirement req = new Requirement() ;
 		req.setName("requirement");

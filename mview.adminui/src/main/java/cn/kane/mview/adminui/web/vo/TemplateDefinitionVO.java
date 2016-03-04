@@ -14,11 +14,19 @@ public class TemplateDefinitionVO extends TemplateDefinition{
 	private static BeanCopier copier =	BeanCopier.create(TemplateDefinition.class, TemplateDefinitionVO.class, false);
 	private String vkey;
 
-	public TemplateDefinitionVO(TemplateDefinition templateDefinition) {
-		copier.copy(templateDefinition, this, null);
-		if (null != templateDefinition && null != templateDefinition.getKey()) {
-			vkey = JSON.toJSONString(templateDefinition.getKey());
+	private TemplateDefinitionVO(){
+		
+	}
+	public static TemplateDefinitionVO build(TemplateDefinition templateDefinition) {
+		if(null == templateDefinition){
+			return null ;
 		}
+		TemplateDefinitionVO vo = new TemplateDefinitionVO() ;
+		copier.copy(templateDefinition, vo, null);
+		if (null != templateDefinition && null != templateDefinition.getKey()) {
+			vo.vkey = JSON.toJSONString(templateDefinition.getKey());
+		}
+		return vo ;
 	}
 
 	public String getVkey() {

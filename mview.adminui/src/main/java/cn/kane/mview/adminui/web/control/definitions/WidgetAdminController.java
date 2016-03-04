@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
+//import javax.annotation.PostConstruct;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.common.json.ParseException;
 
+import cn.kane.mview.adminui.web.utils.DefinitionKeysJsonUtil;
 import cn.kane.mview.adminui.web.utils.JsonDataEditor;
 import cn.kane.mview.adminui.web.vo.WidgetDefinitionVO;
 import cn.kane.mview.service.definition.entity.DefinitionKey;
@@ -43,6 +45,14 @@ public class WidgetAdminController {
 			@PathVariable("name")String name,
 			@PathVariable("version")String version) throws IOException{
 		DefinitionKey key = this.buildDefinitionKey(type, name, version) ;
+		WidgetDefinition def = widgetDefinitionManager.get(key) ;
+		return WidgetDefinitionVO.format(def) ;
+	}
+	
+	@RequestMapping(value="widgets/{key}",method=RequestMethod.GET)
+	@ResponseBody
+	public WidgetDefinitionVO viewkey(@PathVariable("key")String keystr) throws IOException{
+		DefinitionKey key = DefinitionKeysJsonUtil.parseKey(keystr) ;
 		WidgetDefinition def = widgetDefinitionManager.get(key) ;
 		return WidgetDefinitionVO.format(def) ;
 	}
@@ -77,7 +87,8 @@ public class WidgetAdminController {
 		return widget ;
 	}
 	
-	@PostConstruct
+//	@PostConstruct
+	@Deprecated
 	public void init(){
 		DefinitionKey widgetKey = this.buildDefinitionKey("widget", "simple", "2") ;
 		WidgetDefinition simpleWidget = new WidgetDefinition() ;

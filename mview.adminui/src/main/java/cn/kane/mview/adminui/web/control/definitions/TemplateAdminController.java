@@ -3,7 +3,8 @@ package cn.kane.mview.adminui.web.control.definitions;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
+//import javax.annotation.PostConstruct;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.ParseException;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.kane.mview.adminui.web.utils.DefinitionKeysJsonUtil;
 import cn.kane.mview.adminui.web.utils.JsonDataEditor;
 import cn.kane.mview.adminui.web.vo.TemplateDefinitionVO;
 import cn.kane.mview.service.definition.entity.DefinitionKey;
@@ -45,12 +47,13 @@ public class TemplateAdminController {
 			@PathVariable("name")String name,
 			@PathVariable("version")String version){
 		DefinitionKey key = this.buildDefinitionKey(type, name, version);
-		return new TemplateDefinitionVO(templateDefinitionManager.get(key)) ;
+		return TemplateDefinitionVO.build(templateDefinitionManager.get(key)) ;
 	}
 	
 	@RequestMapping(value="templates/{key}",method=RequestMethod.GET)
 	@ResponseBody
-	public TemplateDefinition viewkey(@PathVariable("key")DefinitionKey key){
+	public TemplateDefinition viewkey(@PathVariable("key")String keystr){
+		DefinitionKey key = DefinitionKeysJsonUtil.parseKey(keystr) ;
 		return templateDefinitionManager.get(key ) ;
 	}
 	
@@ -90,7 +93,8 @@ public class TemplateAdminController {
 		return template ;
 	}
 	
-	@PostConstruct
+//	@PostConstruct
+	@Deprecated
 	public void init(){
 		TemplateDefinition css = this.buildTemplateDefinition("css", "simple", "2", "css-content") ;
 		TemplateDefinition js = this.buildTemplateDefinition("js", "simple", "2", "js-content") ;

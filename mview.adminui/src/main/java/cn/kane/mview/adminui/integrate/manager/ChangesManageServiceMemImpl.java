@@ -180,7 +180,9 @@ public class ChangesManageServiceMemImpl implements ChangesManageService {
 				Object fieldVal = field.get(definition);
 				if (null != fieldVal) {
 					DefinitionKey key = (DefinitionKey) fieldVal;
-					field.set(definition, this.clone(key));
+					DefinitionKey newkey = this.clone(key);
+					newkey.setVersion("TRUNK");
+					field.set(definition, newkey);
 				}
 			} else if (field.getType() == List.class) {
 				if (this.isGenericDefinitionKey(field)) {

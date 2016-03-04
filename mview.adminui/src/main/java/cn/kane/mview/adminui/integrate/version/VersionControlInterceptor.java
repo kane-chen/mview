@@ -11,7 +11,7 @@ import cn.kane.mview.service.definition.entity.AbstractDefinition;
 public class VersionControlInterceptor {
 
 	@Autowired
-	private RequirementMemberService requirementJoinService ;
+	private RequirementMemberService requirementMemberService ;
 	@Autowired
 	private RequirementManageService requirementManageService ;
 	@Autowired
@@ -26,7 +26,7 @@ public class VersionControlInterceptor {
 				if("trunk".equalsIgnoreCase(def.getKey().getVersion())){
 					return ;
 				}
-				String version = requirementJoinService.query(def.getOperator()) ;
+				String version = requirementMemberService.query(def.getOperator()) ;
 				if(null == requirementManageService.get(version)){
 					throw new UnsupportedOperationException(String.format("operator[%s] not in valid-requirement[%s]", def.getOperator(),version)) ;
 				}

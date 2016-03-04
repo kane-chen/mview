@@ -3,8 +3,6 @@ package cn.kane.mview.adminui.integrate.manager;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.PostConstruct;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +13,8 @@ public class RequirementMemberServiceMemImpl implements RequirementMemberService
 
 	private Map<String,String> requirementMembers = new ConcurrentHashMap<String, String>() ;
 	
-	@PostConstruct
+//	@PostConstruct
+	@Deprecated
 	public void init(){
 		this.join("kane", "2");
 	}

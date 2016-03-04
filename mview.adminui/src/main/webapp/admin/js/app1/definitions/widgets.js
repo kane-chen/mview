@@ -45,10 +45,7 @@ define(function(require){
 	            		}
 		            	return widget["viewTemplateDefinition.type"] + "/" + widget["viewTemplateDefinition.name"]+"/"+widget["viewTemplateDefinition.version"] ;
 		            }),
-            	nga.field('description'),
-	            nga.field('operator'),
-	            nga.field('ctime'),
-	            nga.field('mtime')
+	            nga.field('operator')
 	        ])
         	.listActions(['show','edit', 'delete']);
         ;

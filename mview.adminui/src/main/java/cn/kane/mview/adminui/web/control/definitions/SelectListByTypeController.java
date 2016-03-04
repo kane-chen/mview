@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.kane.mview.adminui.web.utils.DefinitionKeysJsonUtil;
 import cn.kane.mview.adminui.web.vo.TemplateDefinitionVO;
 import cn.kane.mview.adminui.web.vo.WidgetDefinitionVO;
 import cn.kane.mview.service.definition.entity.DefinitionKey;
@@ -42,7 +43,7 @@ public class SelectListByTypeController {
 		}
 		List<TemplateDefinitionVO> defViews = new ArrayList<TemplateDefinitionVO>(templateDefs.size());
 		for (TemplateDefinition def : templateDefs) {
-			TemplateDefinitionVO defForView = new TemplateDefinitionVO(def);
+			TemplateDefinitionVO defForView = TemplateDefinitionVO.build(def);
 			defViews.add(defForView);
 		}
 		return defViews;
@@ -53,6 +54,13 @@ public class SelectListByTypeController {
 	public List<WidgetDefinitionVO> widgetList() throws ParseException {
 		List<WidgetDefinition> widgets = widgetDefinitionManager.list(new DefinitionKey(), new DefinitionKey());
 		return this.getWidgetDefVO(widgets);
+	}
+	
+	@RequestMapping(value = "widgets/type/{key}", method = RequestMethod.GET)
+	@ResponseBody
+	public WidgetDefinitionVO widgetview(@PathVariable("key")String keystr) throws ParseException {
+		WidgetDefinition widget = widgetDefinitionManager.get(DefinitionKeysJsonUtil.parseKey(keystr)) ;
+		return  WidgetDefinitionVO.format(widget);
 	}
 
 	private List<WidgetDefinitionVO> getWidgetDefVO(List<WidgetDefinition> widgetDefs) {

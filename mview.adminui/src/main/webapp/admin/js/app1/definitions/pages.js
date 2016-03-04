@@ -37,10 +37,7 @@ define(function(require){
 	            		}
 	            		return page["layoutDefinition.type"] + "/" + page["layoutDefinition.name"]+"/"+page["layoutDefinition.version"] ;
 		            }),
-            	nga.field('description'),
-	            nga.field('operator'),
-	            nga.field('ctime'),
-	            nga.field('mtime')
+	            nga.field('operator')
 	        ])
         	.listActions(['show','edit', 'delete']);
         ;

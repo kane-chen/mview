@@ -14,10 +14,7 @@ define(function(require){
 	            nga.field('key.name').label('Name'),
 	            nga.field('key.version').label('Version'),
 	            nga.field('content'),
-	            nga.field('description'),
-	            nga.field('operator'),
-	            nga.field('ctime'),
-	            nga.field('mtime')
+	            nga.field('operator')
 	        ])
 	        .filters([
                 nga.field('keytype')

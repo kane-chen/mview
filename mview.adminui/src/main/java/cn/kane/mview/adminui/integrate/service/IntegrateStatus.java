@@ -15,6 +15,9 @@ public enum IntegrateStatus {
 	private String disableName ;
 	private IntegrateStatus(String status,String forwardName,String backwardName,String disableName){
 		this.status = status ;
+		this.forwardName = forwardName ;
+		this.backwardName = backwardName ;
+		this.disableName = disableName ;
 	}
 
 	public String status(){

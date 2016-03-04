@@ -86,7 +86,7 @@ public class ChangeAdminController {
 		return resp ;
 	}
 	
-	@RequestMapping(value="/changes",method=RequestMethod.POST)
+	@RequestMapping(value="changes",method=RequestMethod.POST)
 	@ResponseBody
 	public RetCode add(@RequestParam("key")String keystr,
 			@RequestParam("requirementId")String requirementId){

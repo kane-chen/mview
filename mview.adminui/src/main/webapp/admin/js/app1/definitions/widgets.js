@@ -106,7 +106,6 @@ define(function(require){
             }).cssClasses('hidden-xs').editable(false),
             nga.field('key.type').label('Type').defaultValue('widget').editable(false),
             nga.field('key.name').label('Name'),
-            nga.field('key.version').label('Version'),
             
 //            	.template('<ma-field field="::field" value="entry.values[field.name()]" entry="entry" entity="templates" form="formController.form" datastore="::formController.dataStore"></ma-field>', true),
             nga.field('cssDefKey','reference').label('cssDefinition')

@@ -48,7 +48,6 @@ define(function(require){
               	{ value: 'dataReadService', label: 'dataReadService' }
             ]),
             nga.field('key.name').label('Name').validation({required: true }),
-            nga.field('key.version').label('Version').validation({required: true }),
             nga.field('content','text'),
             nga.field('operator','string').defaultValue('kane')
      	]);

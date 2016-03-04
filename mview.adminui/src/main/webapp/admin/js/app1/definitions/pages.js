@@ -94,7 +94,6 @@ define(function(require){
             }).cssClasses('hidden-xs').editable(false),
             nga.field('key.type').label('Type').defaultValue('page').editable(false),
             nga.field('key.name').label('Name'),
-            nga.field('key.version').label('Version'),
             
             nga.field('cssDefKey','reference').label('cssDefinition')
 	        	.targetEntity(admin.getEntity('templates/type/css'))

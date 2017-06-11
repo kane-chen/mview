@@ -12,8 +12,9 @@
 	
 	<modules>
 		<module>mview.service</module>
-		<module>mview.worker</module>
 		<module>mview.manager</module>
+		<module>mview.cvs</module>
+		<module>mview.worker</module>
 		<module>mview.adminui</module>
 	</modules>
 

@@ -4,7 +4,8 @@
 *.prefs
 target/
 .settings/
-
+.idea
+*.iml
 # Package Files #
 *.jar
 *.war
